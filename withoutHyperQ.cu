@@ -58,15 +58,28 @@ int main(void)
     cudaEventRecord(stop_event, 0);
     cudaEventSynchronize(stop_event);
     cudaEventElapsedTime(&elapsed_time,start_event,stop_event);
-    printf("Measured time for sample = %.3fs\n", elapsed_time);
+    printf("Measured time for sample = %.3fus\n", elapsed_time);
     
     // Copy data from device to host
     float result[nstreams];
     cudaMemcpy(result, d_result, nstreams * sizeof(float), cudaMemcpyDeviceToHost);
 
+    // Print results
+//    printf("Matrix:\n");
+//    for (int i = 0; i < nstreams; i++) {
+//        for (int j = 0; j < nstreams; j++) {
+//            printf("%f ", matrix[i * nstreams + j]);
+//        }
+//        printf("\n");
+//    }
+//    printf("Vector:\n");
+//    for (int i = 0; i < nstreams; i++) {
+//        printf("%f ", vector[i]);
+//    }
+//    printf("\n");
     printf("Result:\n");
     for (int i = 0; i < nstreams; i++) {
-        printf("%.1f ", result[i]);
+        printf("%f ", result[i]);
     }
     printf("\n");
     
